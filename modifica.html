@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Modificar</title>
+
+    <script type="module" src="lib/js/consumeJson.js"></script>
+    <script type="module" src="lib/js/submitForm.js"></script>
+    <script type="module" src="lib/js/muestraObjeto.js"></script>
+    <script type="module" src="lib/js/muestraError.js"></script>
+
+    <script>
+        // Obtiene los parámetros de la página.
+        const params = new URL(location.href).searchParams;
+    </script>
+</head>
+
+<body onload="if (params.size > 0) {
+        consumeJson('srv/pasatiempo.php?' + params)
+            .then(respuesta => muestraObjeto(forma, respuesta.body))
+            .catch(muestraError)
+    }">
+
+    <form id="forma" onsubmit="submitForm('srv/socio-modifica.php', event)
+        .then(respuesta => {
+            alert('Registro modificado exitosamente');
+            location.href = 'index.html';
+        })
+        .catch(muestraError)">
+
+        <h1>Modificar</h1>
+
+        <p><a href="index.html">Cancelar</a></p>
+
+        <input name="id" type="hidden">
+
+        <p>
+            <label>
+                Nombre *
+                <input name="nombre" required>
+            </label>
+        </p>
+        <p>
+            <label>
+                Apellido Paterno *
+                <input name="apellidoPaterno" required>
+            </label>
+        </p>
+        <p>
+            <label>
+                Apellido Materno *
+                <input name="apellidoMaterno" required>
+            </label>
+        </p>
+        <p>
+            <label>
+                Correo *
+                <input name="correo" type="email" required>
+            </label>
+        </p>
+
+        <button type="submit">Guardar</button>
+
+        <button type="button" onclick="
+            if (params.size > 0 && confirm('Confirma la eliminación')) {
+                consumeJson('srv/pasatiempo-elimina.php?' + params)
+                    .then(() => {
+                        alert('Registro eliminado exitosamente');
+                        location.href = 'index.html';
+                    })
+                    .catch(muestraError)
+            }">
+            Eliminar
+        </button>
+    </form>
+
+</body>
+
+</html>
