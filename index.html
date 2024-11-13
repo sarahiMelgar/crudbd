@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Acceso a base de datos</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #4a4a4a;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            color: #d63384;
+        }
+
+        .btn-primary {
+            background-color: #d63384;
+            border-color: #d63384;
+        }
+
+        #tabla {
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        footer {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+    <script type="module" src="lib/js/consumeJson.js"></script>
+    <script type="module" src="lib/js/muestraObjeto.js"></script>
+    <script type="module" src="lib/js/muestraError.js"></script>
+</head>
+
+<body onload="consumeJson('srv/socios.php')
+   .then(respuesta => muestraObjeto(document, respuesta.body))
+   .catch(muestraError)" class="container mt-5">
+
+    <h1 class="text-center">
+        <i class="fas fa-database"></i> Socios
+    </h1>
+    <br>
+
+    <p class="text-center">
+        <a href="agrega.html" class="btn btn-primary">
+            <i class="fas fa-user-plus"></i> Agregar
+        </a>
+    </p>
+
+    <dl id="tabla" class="table-responsive">
+        <progress max="100">Cargando&hellip;</progress>
+    </dl>
+
+    <footer class="text-center mt-5">
+        &copy; 2024 Mi Empresa
+    </footer>
+
+    <!-- Bootstrap JS y dependencias -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
